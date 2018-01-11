@@ -9,11 +9,11 @@ and
 APIs.
 
 
-## Setup
 
 To begin, you'll simply need the latest version of TensorFlow installed.
 Then to train the model, run the following:
 
+## 运行：
 ```
 python mnist.py
 ```
@@ -22,30 +22,33 @@ The model will begin training and will automatically evaluate itself on the
 validation data.
 
 Illustrative unit tests and benchmarks can be run with:
+## 测试
 
 ```
 python mnist_test.py
+```
+## 性能评估
+```
 python mnist_test.py --benchmarks=.
 ```
 
-## Exporting the model
 
+## 保存模型
 You can export the model into Tensorflow [SavedModel](https://www.tensorflow.org/programmers_guide/saved_model) format by using the argument `--export_dir`:
 
 ```
 python mnist.py --export_dir /tmp/mnist_saved_model
 ```
+**保存路径有时间戳**在 `/tmp/mnist_saved_model/` 中，(e.g. `/tmp/mnist_saved_model/1513630966/`).
 
-The SavedModel will be saved in a timestamped directory under `/tmp/mnist_saved_model/` (e.g. `/tmp/mnist_saved_model/1513630966/`).
-
-**Getting predictions with SavedModel**
+## 加载已保存的模型
 Use [`saved_model_cli`](https://www.tensorflow.org/programmers_guide/saved_model#cli_to_inspect_and_execute_savedmodel) to inspect and execute the SavedModel.
 
 ```
 saved_model_cli run --dir /tmp/mnist_saved_model/TIMESTAMP --tag_set serve --signature_def classify --inputs image=examples.npy
 ```
 
-`examples.npy` contains the data from `example5.png` and `example3.png` in a numpy array, in that order. The array values are normalized to values between 0 and 1.
+`examples.npy` 中式 `example5.png` and `example3.png` 的数据，标准化到了 a numpy array, in that order. The array values are normalized to values between 0 and 1.
 
 The output should look similar to below:
 ```
